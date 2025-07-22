@@ -28,8 +28,8 @@ services:
     networks:
       - microservices-net
     restart: unless-stopped
-  mangodb:
-    container_name: ms_mango_db
+  mongodb:
+    container_name: ms_mongo_db
     image: mongo
     ports:
       - 27017:27017
@@ -37,8 +37,9 @@ services:
       - mongo:/data
     environment:
       MONGO_INITDB_ROOT_USERNAME: mounir
-      MANGO_INITDB_ROOT_PASSWORD: mounir123
-
+      MONGO_INITDB_ROOT_PASSWORD: mounir123
+    networks:
+      - microservices-net
   mongo-express:
     container_name: ms_mongo_express
     image: mongo-express
@@ -49,6 +50,10 @@ services:
       - ME_CONFIG_MONGODB_ADMINUSERNAME=mounir
       - ME_CONFIG_MONGODB_ADMINPASSWORD=mounir123
       - ME_CONFIG_MONGODB_SERVER=mongodb
+      - ME_CONFIG_BASICAUTH=false
+
+    networks:
+      - microservices-net
 
   mail-dev:
     container_name: ms_mail_dev
