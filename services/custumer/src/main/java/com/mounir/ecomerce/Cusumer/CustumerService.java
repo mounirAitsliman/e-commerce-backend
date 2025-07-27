@@ -1,13 +1,14 @@
-package com.mounir.ecomerce.CustumerController;
+package com.mounir.ecomerce.Cusumer;
 
-import ch.qos.logback.core.util.StringUtil;
-import com.mounir.ecomerce.Cusumer.Custumer;
 import com.mounir.ecomerce.Exception.CustumerNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.lang.String.format;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +21,7 @@ public class CustumerService {
         return custumer.getId();
     }
     public void updateCustumer(CustumerRequest request) {
-        var custumer = custumerRepository.findById(request.id()).orElseThrow(() -> new CustumerNotFoundException(String.format(
+        var custumer = custumerRepository.findById(request.id()).orElseThrow(() -> new CustumerNotFoundException(format(
                 "Cannot update custumer:: No custumer found with the provided ID:: %s",request.id())));
         mergerCustumer(custumer,request);
         custumerRepository.save(custumer);
@@ -42,5 +43,23 @@ public class CustumerService {
     }
 
     public List<CustumerResponse> findAllCustumers() {
+        return custumerRepository.findAll()
+                .stream()
+                .map(custumerMapper::fromCustumer)
+                .collect(Collectors.toList());
+    }
+
+    public Boolean existsById(String custumerId) {
+        return custumerRepository.findById(custumerId).isPresent();
+    }
+
+    public CustumerResponse findById(String custumerId) {
+        return custumerRepository.findById(custumerId)
+                .map(custumerMapper::fromCustumer)
+                .orElseThrow(()-> new CustumerNotFoundException(format("No custumer found with the provided ID :: %s",custumerId)));
+    }
+
+    public void deleteCustumerById(String custumerId) {
+        custumerRepository.deleteById(custumerId);
     }
 }

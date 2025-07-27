@@ -1,9 +1,6 @@
-package com.mounir.ecomerce.CustumerController;
+package com.mounir.ecomerce.Cusumer;
 
-import com.mounir.ecomerce.Cusumer.Custumer;
 import org.springframework.stereotype.Service;
-
-import java.util.Locale;
 
 @Service
 public class CustumerMapper {
@@ -19,5 +16,14 @@ public class CustumerMapper {
             .adress(request.adress())
             .build();
 
+    }
+    public CustumerResponse fromCustumer(Custumer custumer){
+        return new CustumerResponse(
+                custumer.getId(),
+                custumer.getFirstname(),
+                custumer.getLastname(),
+                custumer.getEmail(),
+                custumer.getAdress()
+        );
     }
 }

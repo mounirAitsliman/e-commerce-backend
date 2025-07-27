@@ -1,6 +1,5 @@
-package com.mounir.ecomerce.CustumerController;
+package com.mounir.ecomerce.Cusumer;
 
-import com.mounir.ecomerce.Cusumer.Custumer;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface CustumerRepository extends MongoRepository<Custumer,String> {

@@ -1,6 +1,5 @@
-package com.mounir.ecomerce.CustumerController;
+package com.mounir.ecomerce.Cusumer;
 
-import com.mounir.ecomerce.Cusumer.Address;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 

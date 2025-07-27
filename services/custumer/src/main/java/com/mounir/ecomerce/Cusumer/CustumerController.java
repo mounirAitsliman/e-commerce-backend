@@ -1,4 +1,4 @@
-package com.mounir.ecomerce.CustumerController;
+package com.mounir.ecomerce.Cusumer;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,5 +30,24 @@ public class CustumerController {
     @GetMapping
     public ResponseEntity<List<CustumerResponse>> findAll(){
         return ResponseEntity.ok(custumerService.findAllCustumers());
+    }
+    @GetMapping("/exists/{custumer-id}")
+    public ResponseEntity<Boolean> existsById(
+            @PathVariable("custumer-id") String custumerId
+    ){
+        return ResponseEntity.ok(custumerService.existsById(custumerId));
+    }
+    @GetMapping("/exists/{custumer-id}")
+    public ResponseEntity<CustumerResponse> findById(
+            @PathVariable("custumer-id") String custumerId
+    ){
+        return ResponseEntity.ok(custumerService.findById(custumerId));
+    }
+    @DeleteMapping("/{custumer_id}")
+    public ResponseEntity<Void> delete(
+            @PathVariable("custumer-id") String custumerId
+    ){
+        custumerService.deleteCustumerById(custumerId);
+        return ResponseEntity.accepted().build();
     }
 }
