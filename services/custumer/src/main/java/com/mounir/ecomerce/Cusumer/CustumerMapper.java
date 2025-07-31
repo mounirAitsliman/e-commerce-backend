@@ -1,8 +1,9 @@
 package com.mounir.ecomerce.Cusumer;
 
-import org.springframework.stereotype.Service;
 
-@Service
+import org.springframework.stereotype.Component;
+
+@Component
 public class CustumerMapper {
     public Custumer toCustumer(CustumerRequest request){
         if (request == null){

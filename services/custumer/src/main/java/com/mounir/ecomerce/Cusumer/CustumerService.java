@@ -17,49 +17,56 @@ public class CustumerService {
     private final CustumerMapper custumerMapper;
 
     public String createCustumer(CustumerRequest request) {
-        var custumer = custumerRepository.save(custumerMapper.toCustumer(request));
-        return custumer.getId();
+//        var custumer = custumerRepository.save(custumerMapper.toCustumer(request));
+//        return custumer.getId();
+        return null;
     }
     public void updateCustumer(CustumerRequest request) {
-        var custumer = custumerRepository.findById(request.id()).orElseThrow(() -> new CustumerNotFoundException(format(
-                "Cannot update custumer:: No custumer found with the provided ID:: %s",request.id())));
-        mergerCustumer(custumer,request);
-        custumerRepository.save(custumer);
+//        var custumer = custumerRepository.findById(request.id()).orElseThrow(() -> new CustumerNotFoundException(format(
+//                "Cannot update custumer:: No custumer found with the provided ID:: %s",request.id())));
+//        mergerCustumer(custumer,request);
+//        custumerRepository.save(custumer);
+        return;
     }
 
     private void mergerCustumer(Custumer custumer, CustumerRequest request) {
-        if (StringUtils.isNotBlank(request.firstname())){
-            custumer.setFirstname(request.firstname());
-        }
-        if (StringUtils.isNotBlank(request.lastname())){
-            custumer.setFirstname(request.lastname());
-        }
-        if (StringUtils.isNotBlank(request.email())){
-            custumer.setFirstname(request.email());
-        }
-        if (request.adress() != null){
-            custumer.setAdress(request.adress());
-        }
+//        if (StringUtils.isNotBlank(request.firstname())){
+//            custumer.setFirstname(request.firstname());
+//        }
+//        if (StringUtils.isNotBlank(request.lastname())){
+//            custumer.setFirstname(request.lastname());
+//        }
+//        if (StringUtils.isNotBlank(request.email())){
+//            custumer.setFirstname(request.email());
+//        }
+//        if (request.adress() != null){
+//            custumer.setAdress(request.adress());
+//        }
+        return;
     }
 
     public List<CustumerResponse> findAllCustumers() {
-        return custumerRepository.findAll()
-                .stream()
-                .map(custumerMapper::fromCustumer)
-                .collect(Collectors.toList());
+//        return custumerRepository.findAll()
+//                .stream()
+//                .map(custumerMapper::fromCustumer)
+//                .collect(Collectors.toList());
+        return null;
     }
 
     public Boolean existsById(String custumerId) {
-        return custumerRepository.findById(custumerId).isPresent();
+        //return custumerRepository.findById(custumerId).isPresent();
+        return null;
     }
 
     public CustumerResponse findById(String custumerId) {
-        return custumerRepository.findById(custumerId)
-                .map(custumerMapper::fromCustumer)
-                .orElseThrow(()-> new CustumerNotFoundException(format("No custumer found with the provided ID :: %s",custumerId)));
+//        return custumerRepository.findById(custumerId)
+//                .map(custumerMapper::fromCustumer)
+//                .orElseThrow(()-> new CustumerNotFoundException(format("No custumer found with the provided ID :: %s",custumerId)));
+        return null;
     }
 
     public void deleteCustumerById(String custumerId) {
-        custumerRepository.deleteById(custumerId);
+       // custumerRepository.deleteById(custumerId);
+        return;
     }
 }
