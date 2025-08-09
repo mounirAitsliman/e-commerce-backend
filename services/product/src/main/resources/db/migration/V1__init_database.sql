@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS product
     price numeric(38,2),
     category_id integer
         constraint fk_category references category
-)
+);
 
 CREATE SEQUENCE IF NOT EXISTS category_seq INCREMENT BY 50;
 CREATE SEQUENCE IF NOT EXISTS product_seq INCREMENT BY 50;
