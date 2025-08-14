@@ -2,7 +2,10 @@ package com.mounir.order.Order;
 
 import com.mounir.order.Customer.CustomerClient;
 import com.mounir.order.Exception.BusinessException;
+import com.mounir.order.OrderLine.OrderLineRequest;
+import com.mounir.order.OrderLine.OrderLineService;
 import com.mounir.order.Product.ProductClient;
+import com.mounir.order.Product.PurchaseRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,18 +17,24 @@ public class OrderService {
     private final CustomerClient customerClient;
     private final ProductClient productClient;
     private final OrderMapper orderMapper;
+    private final OrderLineService orderLineService;
     public Integer createdOrder( OrderRequest orderRequest) {
-        //Check custumer --> Open feign
         var custumer = this.customerClient.findCustomerById(orderRequest.customerId())
                 .orElseThrow(() -> new BusinessException("Cannot create order:: No custumer exists with the provided ID::"));
-        //purshase the products ---> product-ms
         this.productClient.purchaseProducts(orderRequest.products());
-        // persist order
         var order = this.orderRepository.save(orderMapper.toOrder(orderRequest));
-        for (P)
-        // persist order lines
+        for (PurchaseRequest purchaseRequest : orderRequest.products()){
+            orderLineService.saveOrderLine(
+                    new OrderLineRequest(
+                            null,
+                            order.getId(),
+                            purchaseRequest.productId(),
+                            purchaseRequest.quantity()
+                    )
+            );
+        }
 
-        //start payment process
+        // todo start payment process
 
         // send order confirmation --> notification -ms (kafka)
         return null;
