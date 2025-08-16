@@ -6,6 +6,8 @@ import com.mounir.order.Kafka.OrderConfirmation;
 import com.mounir.order.Kafka.OrderProducer;
 import com.mounir.order.OrderLine.OrderLineRequest;
 import com.mounir.order.OrderLine.OrderLineService;
+import com.mounir.order.Payment.PaymentClient;
+import com.mounir.order.Payment.PaymentRequest;
 import com.mounir.order.Product.ProductClient;
 import com.mounir.order.Product.PurchaseRequest;
 import jakarta.persistence.EntityNotFoundException;
@@ -25,6 +27,7 @@ public class OrderService {
     private final OrderMapper orderMapper;
     private final OrderLineService orderLineService;
     private final OrderProducer orderProducer;
+    private final PaymentClient  paymentClient;
     public Integer createdOrder( OrderRequest orderRequest) {
         var custumer = this.customerClient.findCustomerById(orderRequest.customerId())
                 .orElseThrow(() -> new BusinessException("Cannot create order:: No custumer exists with the provided ID::"));
@@ -40,9 +43,14 @@ public class OrderService {
                     )
             );
         }
-
-        // todo start payment process
-
+        var paymentRequest = new PaymentRequest(
+                orderRequest.amount(),
+                orderRequest.paymentMethod(),
+                order.getId(),
+                order.getReference(),
+                custumer
+        );
+        paymentClient.requestOrderPayment(paymentRequest);
         orderProducer.sendOrderConfirmation(
                 new OrderConfirmation(
                         orderRequest.reference(),

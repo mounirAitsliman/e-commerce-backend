@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.Optional;
 
 @FeignClient(
-        name = "custumer-service",
-        url = "{application.config.custumer-url}"
+        name = "customer-service",
+        url = "${application.config.customer-url:http://localhost:8090/api/v1/customers}"
 )
 public interface CustomerClient {
 
-    @GetMapping("/{custumer-id}")
-    Optional<CustomerResponse> findCustomerById(@PathVariable("custumer-id") String custumerId);
+    @GetMapping("/{customer-id}")
+    Optional<CustomerResponse> findCustomerById(@PathVariable("customer-id") String custumerId);
 }

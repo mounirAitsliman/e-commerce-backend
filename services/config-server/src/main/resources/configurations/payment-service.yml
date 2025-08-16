@@ -1,12 +1,12 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/order
+    url: jdbc:postgresql://localhost:5432/payment
     username: mounir
     password: mounir123
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-update
+      ddl-auto: validate
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   kafka:
@@ -15,12 +15,6 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        spring.json.type.mapping: orderConfirmation:com.mounir.order.Kafka.OrderConfirmation
+        spring.json.type.mapping: paymentConfirmation:com.mounir.payment.notification.OrderConfirmation
 server:
-  port: 8070
-
-application:
-  config:
-    customer-url: http://localhost:8090/api/v1/customers
-    payment-url: http://localhost:8060/api/v1/payments
-    product-url: http://localhost:8050/api/v1/products
+  port: 8060
