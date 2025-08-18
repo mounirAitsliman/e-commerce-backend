@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation de commande</title>
+</head>
+<body style="font-family: Arial, sans-serif; color:#333;">
+<h2>Bonjour <span th:text="${customerName}">Client</span>,</h2>
+
+<p>
+    Merci pour votre commande <strong th:text="${orderReference}">#REF123</strong>.
+    Le montant total est de <strong th:text="${totalAmount}">0.00</strong> MAD.
+</p>
+
+<h3>Détails de la commande :</h3>
+<table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+    <thead>
+    <tr>
+        <th>Produit</th>
+        <th>Quantité</th>
+        <th>Prix unitaire</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.name}">Nom produit</td>
+        <td th:text="${product.quantity}">1</td>
+        <td th:text="${product.price}">100.00</td>
+    </tr>
+    </tbody>
+</table>
+
+<p>
+    Vous recevrez un email dès que votre commande sera expédiée.
+</p>
+
+<p>
+    L’équipe <strong>E-commerce</strong>.
+</p>
+</body>
+</html>
